@@ -12,6 +12,21 @@ export const courseRouter = createTRPCRouter({
       where: {
         userId: ctx.auth.userId,
       },
+      select: {
+        id: true,
+        name: true,
+        _count: {
+          select: {
+            Subject: {
+              where: {
+                courseId: {
+                  equals: "courseId",
+                },
+              },
+            },
+          },
+        },
+      },
     });
   }),
 
