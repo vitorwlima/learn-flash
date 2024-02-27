@@ -30,6 +30,42 @@ export const courseRouter = createTRPCRouter({
     });
   }),
 
+  getById: publicProcedure
+    .input(z.object({ courseId: z.string() }))
+    .query(({ ctx, input }) => {
+      if (!ctx.auth.userId) {
+        throw new Error("Not authenticated");
+      }
+
+      return ctx.db.course.findFirst({
+        where: {
+          id: input.courseId,
+          userId: ctx.auth.userId,
+        },
+        select: {
+          id: true,
+          name: true,
+          Subject: {
+            select: {
+              id: true,
+              name: true,
+              _count: {
+                select: {
+                  Card: {
+                    where: {
+                      subject: {
+                        courseId: input.courseId,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      });
+    }),
+
   create: publicProcedure
     .input(z.object({ name: z.string().min(1) }))
     .mutation(async ({ input, ctx }) => {

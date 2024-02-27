@@ -30,9 +30,9 @@ export const NewSubject: React.FC = () => {
       { name: inputRef.current!.value, courseId: id },
       {
         onSuccess: () => {
-          utils.subject.getAll.invalidate({ courseId: id });
+          utils.course.getById.invalidate({ courseId: id });
           inputRef.current!.value = "";
-          toast.success("Conteúdo adicionada com sucesso.");
+          toast.success("Conteúdo adicionado com sucesso.");
           setIsOpen(false);
         },
       },

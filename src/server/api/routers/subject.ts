@@ -3,31 +3,20 @@ import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 
 export const subjectRouter = createTRPCRouter({
-  getAll: publicProcedure
-    .input(z.object({ courseId: z.string() }))
-    .query(({ input, ctx }) => {
+  getById: publicProcedure
+    .input(z.object({ subjectId: z.string() }))
+    .query(({ ctx, input }) => {
       if (!ctx.auth.userId) {
         throw new Error("Not authenticated");
       }
 
-      return ctx.db.subject.findMany({
+      return ctx.db.subject.findFirst({
         where: {
-          courseId: input.courseId,
+          id: input.subjectId,
         },
         select: {
           id: true,
           name: true,
-          _count: {
-            select: {
-              Card: {
-                where: {
-                  subject: {
-                    courseId: input.courseId,
-                  },
-                },
-              },
-            },
-          },
         },
       });
     }),
