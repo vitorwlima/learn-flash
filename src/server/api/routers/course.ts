@@ -19,8 +19,8 @@ export const courseRouter = createTRPCRouter({
           select: {
             Subject: {
               where: {
-                courseId: {
-                  equals: "courseId",
+                course: {
+                  userId: ctx.auth.userId,
                 },
               },
             },
