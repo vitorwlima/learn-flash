@@ -31,11 +31,17 @@ export default function RootLayout({
           <TRPCReactProvider>
             <Toaster richColors />
             <header className="flex items-center justify-between border-b border-purple-800 px-10 py-5">
-              <Link href="/">
-                <h1 className="text-xl font-extrabold tracking-tight sm:text-2xl">
-                  Learn <span className="text-purple-600">Flash</span>
-                </h1>
-              </Link>
+              <section className="flex items-center gap-4">
+                <Link href="/">
+                  <h1 className="text-xl font-extrabold tracking-tight sm:text-2xl">
+                    Learn <span className="text-purple-600">Flash</span>
+                  </h1>
+                </Link>
+
+                <Link href="/revision" className="border-l border-border pl-4">
+                  Revisar
+                </Link>
+              </section>
 
               <UserButton />
             </header>
