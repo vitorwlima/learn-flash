@@ -1,5 +1,6 @@
 'use client'
 
+import { CardsList } from "@/components/common/cards-list";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { api } from "@/trpc/react";
@@ -27,6 +28,8 @@ export default function Subject() {
           Adicionar flash card
         </Link>
       </header>
+
+      <CardsList cards={data?.Card ?? []} />
     </main>
   );
 }
