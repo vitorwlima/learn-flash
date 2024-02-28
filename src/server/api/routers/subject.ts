@@ -17,6 +17,13 @@ export const subjectRouter = createTRPCRouter({
         select: {
           id: true,
           name: true,
+          Card: {
+            select: {
+              id: true,
+              question: true,
+              answer: true,
+            }
+          }
         },
       });
     }),
